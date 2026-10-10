@@ -33,6 +33,11 @@ def load_freMTPL(cache=True):
 
     return df
 
+def load_clean():
+    """Charge le dataset et retire les polices incohérentes
+    (ClaimNb > 0 mais ClaimAmount = 0)."""
+    df = load_freMTPL()
+    return df[~((df["ClaimNb"] > 0) & (df["ClaimAmount"] == 0))].copy()
 
 if __name__ == "__main__":
     df = load_freMTPL()
